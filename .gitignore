@@ -1,0 +1,15 @@
+/logs
+sourcecode/trafficlights5/target/archive*
+sourcecode/trafficlights5/target/classes
+sourcecode/trafficlights5/target/generated*
+sourcecode/trafficlights5/target/maven*
+sourcecode/trafficlights5/target/surefire*
+sourcecode/trafficlights5/target/test*
+sourcecode/trafficlights5/target/logs
+sourcecode/trafficlights5/.settings/
+sourcecode/trafficlights5/.classpath
+sourcecode/trafficlights5/.project
+sourcecode/trafficlights5/logs
+sourcecode/trafficlights5/.gitignore
+
+h2_database/dbcontent.mv.db
