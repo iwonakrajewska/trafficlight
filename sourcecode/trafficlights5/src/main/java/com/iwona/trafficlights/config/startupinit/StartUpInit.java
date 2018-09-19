@@ -37,6 +37,7 @@ public class StartUpInit {
 		currentProgramSetUp.setNextProgram(programConfiguration.getProgramById(Integer.valueOf(1)));
 		currentProgramSetUp.setCurrentProgram(programConfiguration.getProgramById(Integer.valueOf(1)));
 		semaphoreRegistry.registerSemaphores();
+		semaphoreRegistry.registerSemaphoreVisitor();
 		lightManager.manageLight();
 	}
 

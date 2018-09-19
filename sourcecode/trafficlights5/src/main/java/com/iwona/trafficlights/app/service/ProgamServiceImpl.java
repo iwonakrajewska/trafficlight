@@ -45,7 +45,7 @@ public class ProgamServiceImpl implements ProgramService {
 		return scheduleList;
 	}
 
-	private void buildStepsConfigurationMap(List<Program> programList) {
+	protected void buildStepsConfigurationMap(List<Program> programList) {
 		for (Program program : programList) {
 			for (ProgramSteps step : program.getProgramSteps()) {
 				Map<Integer, Integer> stepConfigurationMap = new HashMap<>();

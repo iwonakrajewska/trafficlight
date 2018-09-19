@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class HibernateDao {
 
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	protected Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();

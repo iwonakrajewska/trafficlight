@@ -3,6 +3,7 @@ package com.iwona.trafficlights.app.dto.configuration;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.iwona.trafficlights.app.entity.program.Program;
 import com.iwona.trafficlights.app.entity.program.Schedule;
@@ -15,7 +16,7 @@ public class ProgramConfiguration {
 	private List<Schedule> programSchedule;
 
 	public Program getProgramById(Integer programId) {
-		if (programId == null)
+		if (programId == null || CollectionUtils.isEmpty(programList))
 			return null;
 
 		for (Program program : programList) {

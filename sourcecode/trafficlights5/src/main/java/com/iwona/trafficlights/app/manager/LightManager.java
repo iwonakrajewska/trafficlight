@@ -25,6 +25,8 @@ public class LightManager {
 
 	private final CurrentProgramSetUp currentProgramSetUp;
 	private final PropertyChangeSupport support;
+	
+	private boolean continueNextIteration = true;
 
 	@Autowired
 	public LightManager(CurrentProgramSetUp currentProgramSetUp) {
@@ -42,27 +44,36 @@ public class LightManager {
 
 	@Async
 	public void manageLight() {
+		while (continueNextIteration) {
+			applySingleIterationCycle();
+		}
+	}
 
-		while (true) {
-			currentProgramSetUp.setCurrentProgram(currentProgramSetUp.getNextProgram());
+	void applySingleIterationCycle() {
+		currentProgramSetUp.setCurrentProgram(currentProgramSetUp.getNextProgram());
 
-			Program currentProgram = currentProgramSetUp.getCurrentProgram();
-			List<ProgramSteps> steps = currentProgram.getProgramSteps();
+		Program currentProgram = currentProgramSetUp.getCurrentProgram();
+		List<ProgramSteps> steps = currentProgram.getProgramSteps();
 
-			for (ProgramSteps step : steps) {
-				Map<Integer, Integer> newStepConfigurationMap = step.getStepConfigurationMap();
-				LOGGER.info("Pushing configuration for programId:" + step.getProgramId() + ", stepid: " + step.getId()
-						+ ", stepSequence:" + step.getSequence() + ", stepDuration:" + step.getStepDuration());
-				support.firePropertyChange("stepConfigurationMap", currentProgramSetUp.getCurrentStepConfigurationMap(),
-						newStepConfigurationMap);
-				currentProgramSetUp.setCurrentStepConfigurationMap(newStepConfigurationMap);
-				try {
-					TimeUnit.MILLISECONDS.sleep(step.getStepDuration());
-				} catch (InterruptedException e1) {
-					;
-				}
+		for (ProgramSteps step : steps) {
+			Map<Integer, Integer> newStepConfigurationMap = step.getStepConfigurationMap();
+			LOGGER.info("Pushing configuration for programId:" + step.getProgramId() + ", stepid: " + step.getId()
+					+ ", stepSequence:" + step.getSequence() + ", stepDuration:" + step.getStepDuration());
+			support.firePropertyChange("stepConfigurationMap", currentProgramSetUp.getCurrentStepConfigurationMap(),
+					newStepConfigurationMap);
+			currentProgramSetUp.setCurrentStepConfigurationMap(newStepConfigurationMap);
+			try {
+				TimeUnit.MILLISECONDS.sleep(step.getStepDuration());
+			} catch (InterruptedException e1) {
+				;
 			}
 		}
 	}
+
+	public void setContinueNextIteration(boolean continueNextIteration) {
+		this.continueNextIteration = continueNextIteration;
+	}
+	
+	
 
 }
