@@ -59,8 +59,8 @@ public class ProgramSchedulerTest {
 	private List<Schedule> createScheduleList() {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		LocalTime localTime = localDateTime.toLocalTime();
-		LocalTime start = localTime.minusHours(1);
-		LocalTime end = localTime.plusHours(1);
+		LocalTime start = localTime.minusMinutes(1);
+		LocalTime end = localTime.plusMinutes(5);
 		DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
 
 		List<Schedule> scheduleList = new ArrayList<>();
